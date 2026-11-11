@@ -1,490 +1,348 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Ergodic Literature Presentation</title>
-
+<title>Ergodic Literature</title>
 <style>
-:root{
-    --primary:#0078d4;
-    --secondary:#0f172a;
-    --accent:#38bdf8;
-    --bg:#f8fafc;
-    --text:#1e293b;
+:root {
+    --primary: #0078d4;
+    --secondary: #0f172a;
+    --accent: #38bdf8;
+    --bg: #f8fafc;
+    --card: #ffffff;
+    --text: #1e293b;
+    --muted: #475569;
+    --line: #dfe7f1;
 }
 
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:'Segoe UI',sans-serif;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", sans-serif;
 }
 
-body{
-    background:var(--bg);
-    color:var(--text);
-    display:flex;
-    min-height:100vh;
-    overflow:hidden;
+html {
+    scroll-behavior: smooth;
 }
 
-/* Sidebar */
-
-.sidebar{
-    width:280px;
-    background:var(--secondary);
-    color:white;
-    padding:25px;
-    overflow-y:auto;
+body {
+    background: linear-gradient(180deg, #eef6ff 0%, var(--bg) 18%, #f8fafc 100%);
+    color: var(--text);
+    line-height: 1.7;
 }
 
-.sidebar h2{
-    margin-bottom:20px;
-    color:var(--accent);
+img {
+    max-width: 100%;
+    display: block;
+    border-radius: 16px;
 }
 
-.nav-item{
-    padding:12px;
-    margin:8px 0;
-    border-radius:8px;
-    cursor:pointer;
-    transition:0.3s;
+header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: rgba(15, 23, 42, 0.96);
+    color: #fff;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.15);
 }
 
-.nav-item:hover,
-.nav-item.active{
-    background:rgba(255,255,255,0.15);
+.header-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 1.1rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
 }
 
-.content{
-    flex:1;
-    display:flex;
-    flex-direction:column;
+.header-inner h1 {
+    font-size: clamp(1.5rem, 2vw, 2.2rem);
+    color: var(--accent);
 }
 
-/* Header */
-
-.header{
-    background:white;
-    padding:15px 30px;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    box-shadow:0 2px 10px rgba(0,0,0,.1);
+.nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.65rem;
+    justify-content: flex-end;
 }
 
-.controls{
-    display:flex;
-    gap:10px;
+.nav a {
+    color: #e2e8f0;
+    text-decoration: none;
+    padding: 0.55rem 0.85rem;
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,0.12);
+    transition: 0.25s ease;
+    font-size: 0.95rem;
 }
 
-button{
-    border:none;
-    background:var(--primary);
-    color:white;
-    padding:10px 18px;
-    border-radius:8px;
-    cursor:pointer;
+.nav a:hover {
+    background: rgba(255,255,255,0.08);
+    transform: translateY(-1px);
 }
 
-button:hover{
-    opacity:.9;
+main {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 4rem;
 }
 
-/* Slides */
-
-.slides-container{
-    flex:1;
-    position:relative;
-    overflow:hidden;
+section {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 24px;
+    padding: clamp(1.5rem, 3vw, 3rem);
+    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
+    margin-bottom: 2rem;
 }
 
-.slide{
-    position:absolute;
-    inset:0;
-    padding:50px;
-    overflow-y:auto;
-    opacity:0;
-    transform:translateX(50px);
-    transition:all .5s ease;
-    pointer-events:none;
+.hero {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 2rem;
+    align-items: center;
 }
 
-.slide.active{
-    opacity:1;
-    transform:translateX(0);
-    pointer-events:all;
+.eyebrow {
+    display: inline-block;
+    background: #e0f2fe;
+    color: #0c4a6e;
+    border-radius: 999px;
+    padding: 0.45rem 0.9rem;
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
 }
 
-.slide h1{
-    font-size:3rem;
-    color:var(--primary);
-    margin-bottom:25px;
+h2 {
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    line-height: 1.1;
+    margin-bottom: 1rem;
+    color: var(--primary);
 }
 
-.slide h2{
-    margin-bottom:15px;
+h3 {
+    font-size: clamp(1.5rem, 2vw, 2.2rem);
+    color: var(--secondary);
+    margin-bottom: 1rem;
 }
 
-.slide p,
-.slide li{
-    font-size:1.15rem;
-    line-height:1.8;
+p, li {
+    font-size: 1.08rem;
+    color: var(--muted);
+    line-height: 1.8;
 }
 
-.slide img{
-    max-width:100%;
-    border-radius:12px;
-    margin-top:20px;
-    box-shadow:0 5px 20px rgba(0,0,0,.15);
+ul {
+    list-style: none;
+    padding-left: 0;
+    margin-top: 1rem;
 }
 
-.grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:40px;
-    align-items:center;
+li {
+    position: relative;
+    padding-left: 1.5rem;
+    margin-bottom: 0.7rem;
 }
 
-.video{
-    width:100%;
-    height:500px;
-    border:none;
-    border-radius:12px;
+li::before {
+    content: "•";
+    color: var(--primary);
+    position: absolute;
+    left: 0;
+    font-size: 1.5rem;
+    line-height: 1.1;
 }
 
-/* Notes */
-
-.notes{
-    margin-top:30px;
-    padding:15px;
-    border-left:5px solid var(--primary);
-    background:#eef6ff;
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    align-items: center;
 }
 
-.notes h3{
-    margin-bottom:10px;
+.card-note {
+    margin-top: 1.5rem;
+    padding: 1rem 1.2rem;
+    border-left: 5px solid var(--primary);
+    background: #eef6ff;
+    border-radius: 10px;
 }
 
-/* Footer */
-
-.footer{
-    background:white;
-    padding:12px 24px;
-    border-top:1px solid #ddd;
-    display:flex;
-    justify-content:space-between;
+.card-note h4 {
+    font-size: 1rem;
+    margin-bottom: 0.3rem;
+    color: var(--secondary);
 }
 
-.progress-wrap{
-    width:250px;
-    background:#ddd;
-    border-radius:20px;
-    overflow:hidden;
+.video-box {
+    width: 100%;
+    min-height: 350px;
+    border-radius: 18px;
+    background: linear-gradient(135deg, #0f172a, #1d4ed8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
 }
 
-.progress{
-    height:10px;
-    background:var(--primary);
-    width:20%;
+.video-box::before {
+    content: "▶";
+    position: absolute;
+    font-size: 4rem;
+    color: rgba(255,255,255,0.85);
 }
 
-@media(max-width:900px){
-
-.sidebar{
-    display:none;
+.video-box span {
+    position: absolute;
+    bottom: 1.25rem;
+    left: 1.25rem;
+    right: 1.25rem;
+    background: rgba(15, 23, 42, 0.5);
+    color: white;
+    padding: 0.75rem 1rem;
+    border-radius: 12px;
+    font-weight: 600;
+    text-align: center;
 }
 
-.grid{
-    grid-template-columns:1fr;
+.footer-note {
+    text-align: center;
+    padding: 1.25rem 1.5rem;
+    color: var(--muted);
+    font-weight: 600;
 }
 
-.slide{
-    padding:25px;
-}
+@media (max-width: 820px) {
+    .header-inner {
+        flex-direction: column;
+        align-items: flex-start;
+    }
 
-.slide h1{
-    font-size:2rem;
-}
+    .nav {
+        justify-content: flex-start;
+    }
 
-.video{
-    height:250px;
-}
+    .hero,
+    .grid {
+        grid-template-columns: 1fr;
+    }
 }
 </style>
 </head>
 <body>
-
-<!-- Sidebar -->
-
-<div class="sidebar">
-
-<h2>Ergodic Literature</h2>
-
-<div class="nav-item active" onclick="goToSlide(0)">
-Introduction
-</div>
-
-<div class="nav-item" onclick="goToSlide(1)">
-Definition
-</div>
-
-<div class="nav-item" onclick="goToSlide(2)">
-Characteristics
-</div>
-
-<div class="nav-item" onclick="goToSlide(3)">
-Examples
-</div>
-
-<div class="nav-item" onclick="goToSlide(4)">
-Video
-</div>
-
-<div class="nav-item" onclick="goToSlide(5)">
-Conclusion
-</div>
-
-</div>
-
-<!-- Main Content -->
-
-<div class="content">
-
-<div class="header">
-<h3>Ergodic Literature Presentation</h3>
-
-<div class="controls">
-<button onclick="prevSlide()">◀ Previous</button>
-<button onclick="nextSlide()">Next ▶</button>
-<button onclick="toggleFullscreen()">Fullscreen</button>
-</div>
-</div>
-
-<div class="slides-container">
-
-<!-- Slide 1 -->
-
-<section class="slide active">
-<h1>Ergodic Literature</h1>
-
-<p>
-A form of literature that requires non-trivial effort from the reader to traverse the text.
-Readers actively participate rather than simply consuming information linearly.
-</p>
-
-<img src="https://images.unsplash.com/photo-1512820790803-83ca734da794?w=1200"
-alt="Books">
-
-<div class="notes">
-<h3>Speaker Notes</h3>
-Discuss how ergodic literature changes the role of the reader from observer to participant.
-</div>
-
-</section>
-
-<!-- Slide 2 -->
-
-<section class="slide">
-<h1>Definition</h1>
-
-<div class="grid">
-
-<div>
-<p>
-The concept was introduced by
-<strong>Espen Aarseth</strong> in 1997 in
-<em>Cybertext: Perspectives on Ergodic Literature</em>.
-</p>
-
-<br>
-
-<ul>
-<li>Ergon = Work</li>
-<li>Hodos = Path</li>
-<li>"Work Path"</li>
-</ul>
-</div>
-
-<div>
-<img src="https://images.unsplash.com/photo-1507842217343-583bb7270b66?w=1200">
-</div>
-
-</div>
-
-</section>
-
-<!-- Slide 3 -->
-
-<section class="slide">
-<h1>Key Characteristics</h1>
-
-<ul>
-<li>Reader participation is necessary.</li>
-<li>Multiple reading paths.</li>
-<li>Non-linear structure.</li>
-<li>Interactive or decision-based progression.</li>
-<li>May include digital or physical navigation challenges.</li>
-</ul>
-
-<div class="notes">
-<h3>Speaker Notes</h3>
-Compare a traditional novel to a choose-your-own-adventure experience.
-</div>
-
-</section>
-
-<!-- Slide 4 -->
-
-<section class="slide">
-<h1>Examples</h1>
-
-<ul>
-<li><strong>House of Leaves</strong> - Mark Z. Danielewski</li>
-<li><strong>Hopscotch</strong> - Julio Cortázar</li>
-<li>Choose Your Own Adventure books</li>
-<li>Interactive fiction</li>
-<li>Hypertext narratives</li>
-<li>Narrative-driven video games</li>
-</ul>
-
-<img src="https://images.unsplash.com/photo-1521587760476-6c12a4b040da?w=1200">
-
-</section>
-
-<!-- Slide 5 -->
-
-<section class="slide">
-<h1>Video Example</h1>
-
-<p>
-Replace the VIDEO_ID below with your preferred YouTube video.
-</p>
-
-<br>
-
-<iframe
-class="video"
-src="https://www.youtube.com/embed/VIDEO_ID"
-allowfullscreen>
-</iframe>
-
-<div class="notes">
-<h3>Speaker Notes</h3>
-Provide a demonstration of interactive storytelling or cybertext.
-</div>
-
-</section>
-
-<!-- Slide 6 -->
-
-<section class="slide">
-<h1>Conclusion</h1>
-
-<p>
-Ergodic literature expands storytelling beyond traditional reading.
-The reader becomes an active participant whose choices,
-navigation, and effort shape the experience.
-</p>
-
-<br>
-
-<h2>Key Takeaway</h2>
-
-<p>
-Meaning emerges not only from the text itself but from
-the reader's interaction with it.
-</p>
-
-</section>
-
-</div>
-
-<div class="footer">
-
-<div id="counter">
-Slide 1 of 6
-</div>
-
-<div class="progress-wrap">
-<div class="progress" id="progress"></div>
-</div>
-
-</div>
-
-</div>
-
-<script>
-
-const slides =
-document.querySelectorAll('.slide');
-
-const navItems =
-document.querySelectorAll('.nav-item');
-
-let currentSlide = 0;
-
-function showSlide(index){
-
-slides.forEach(slide =>
-slide.classList.remove('active'));
-
-navItems.forEach(item =>
-item.classList.remove('active'));
-
-slides[index].classList.add('active');
-navItems[index].classList.add('active');
-
-document.getElementById("counter").innerHTML =
-`Slide ${index+1} of ${slides.length}`;
-
-document.getElementById("progress").style.width =
-((index+1)/slides.length*100)+"%";
-}
-
-function nextSlide(){
-
-if(currentSlide < slides.length-1){
-currentSlide++;
-showSlide(currentSlide);
-}
-}
-
-function prevSlide(){
-
-if(currentSlide > 0){
-currentSlide--;
-showSlide(currentSlide);
-}
-}
-
-function goToSlide(index){
-
-currentSlide=index;
-showSlide(index);
-}
-
-document.addEventListener('keydown',e=>{
-
-if(e.key==="ArrowRight") nextSlide();
-
-if(e.key==="ArrowLeft") prevSlide();
-});
-
-function toggleFullscreen(){
-
-if(!document.fullscreenElement){
-document.documentElement.requestFullscreen();
-}else{
-document.exitFullscreen();
-}
-}
-
-showSlide(0);
-
-</script>
-
+<header>
+    <div class="header-inner">
+        <h1>Ergodic Literature</h1>
+        <nav class="nav" aria-label="Page sections">
+            <a href="#intro">Introduction</a>
+            <a href="#definition">Definition</a>
+            <a href="#characteristics">Characteristics</a>
+            <a href="#examples">Examples</a>
+            <a href="#video">Video</a>
+            <a href="#conclusion">Conclusion</a>
+        </nav>
+    </div>
+</header>
+
+<main>
+    <section id="intro" class="hero">
+        <div>
+            <span class="eyebrow">Overview</span>
+            <h2>Ergodic Literature</h2>
+            <p>
+                A form of literature that requires non-trivial effort from the reader to traverse the text.
+                Readers actively participate rather than simply consuming information linearly.
+            </p>
+            <div class="card-note">
+                <h4>Speaker note</h4>
+                Discuss how ergodic literature changes the role of the reader from observer to participant.
+            </div>
+        </div>
+        <img src="https://images.unsplash.com/photo-1512820790803-83ca734da794?w=1200" alt="Books on a table">
+    </section>
+
+    <section id="definition">
+        <h3>Definition</h3>
+        <div class="grid">
+            <div>
+                <p>
+                    The concept was introduced by <strong>Espen Aarseth</strong> in 1997 in
+                    <em>Cybertext: Perspectives on Ergodic Literature</em>.
+                </p>
+                <ul>
+                    <li>Ergon = Work</li>
+                    <li>Hodos = Path</li>
+                    <li>“Work Path”</li>
+                </ul>
+            </div>
+            <img src="https://images.unsplash.com/photo-1507842217343-583bb7270b66?w=1200" alt="Stack of books">
+        </div>
+    </section>
+
+    <section id="characteristics">
+        <h3>Key Characteristics</h3>
+        <ul>
+            <li>Reader participation is necessary.</li>
+            <li>Multiple reading paths.</li>
+            <li>Non-linear structure.</li>
+            <li>Interactive or decision-based progression.</li>
+            <li>May include digital or physical navigation challenges.</li>
+        </ul>
+        <div class="card-note">
+            <h4>Speaker note</h4>
+            Compare a traditional novel to a choose-your-own-adventure experience.
+        </div>
+    </section>
+
+    <section id="examples">
+        <h3>Examples</h3>
+        <ul>
+            <li><strong>House of Leaves</strong> — Mark Z. Danielewski</li>
+            <li><strong>Hopscotch</strong> — Julio Cortázar</li>
+            <li>Choose Your Own Adventure books</li>
+            <li>Interactive fiction</li>
+            <li>Hypertext narratives</li>
+            <li>Narrative-driven video games</li>
+        </ul>
+        <div style="margin-top: 1.5rem;">
+            <img src="https://images.unsplash.com/photo-1521587760476-6c12a4b040da?w=1200" alt="Reader exploring a book">
+        </div>
+    </section>
+
+    <section id="video">
+        <h3>Video Example</h3>
+        <div class="video-box" aria-label="Video placeholder for interactive storytelling">
+            <span>Interactive storytelling or cybertext demonstration</span>
+        </div>
+        <div class="card-note">
+            <h4>Speaker note</h4>
+            Provide a demonstration of interactive storytelling or cybertext.
+        </div>
+    </section>
+
+    <section id="conclusion">
+        <h3>Conclusion</h3>
+        <p>
+            Ergodic literature expands storytelling beyond traditional reading. The reader becomes an active participant whose choices, navigation, and effort shape the experience.
+        </p>
+        <div style="margin-top: 1.5rem;">
+            <h4 style="font-size:1.4rem; color: var(--secondary); margin-bottom: 0.75rem;">Key takeaway</h4>
+            <p>
+                Meaning emerges not only from the text itself but from the reader’s interaction with it.
+            </p>
+        </div>
+    </section>
+
+    <div class="footer-note">Single-page presentation</div>
+</main>
 </body>
 </html>
